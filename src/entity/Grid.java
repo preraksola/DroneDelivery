@@ -21,6 +21,10 @@ public class Grid {
 		this.prodList=new Product[sizeProdList];
 	}
 	
+	public Grid(){
+		
+	}
+	
 	public void initGrid(){
 		
 	}

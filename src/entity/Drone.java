@@ -72,16 +72,24 @@ public class Drone {
 		System.out.println("W "+this.droneId);
 	}
 	
-	public void act(){
+	public void act(int nbItem, Product prodType, Coordinates goal){
 		if(this.currentState!=State.wait){
-			switch(this.currentCommand){
-			case load:
-				break;
-			case unload:
-				break;
-			case deliver:
-				break;
+			if(this.c==goal){
+				switch(this.currentCommand){
+				case load:
+					load(nbItem,prodType);
+					break;
+				case unload:
+					delivery(nbItem,prodType);
+					break;
+				case deliver:
+					delivery(nbItem,prodType);
+					break;
+				}
+			}else{
+				this.move(goal.getX(), goal.getY());
 			}
+			
 		}else{
 			this.waitNbTurn--;
 			System.out.println(this.droneId+" W "+this.waitNbTurn);
@@ -92,8 +100,16 @@ public class Drone {
 	}
 	
 	public void move(int x,int y){
-		this.c.setX(x);
-		this.c.setY(y);
+		if(this.c.getX()<x){
+			this.c.setX(this.c.getX()+1);
+		}else if(this.c.getX()>x){
+			this.c.setX(this.c.getX()-1);
+		}
+		if(this.c.getY()<y){
+			this.c.setY(this.c.getY()+1);
+		}else if(this.c.getY()>y){
+			this.c.setY(this.c.getY()-1);
+		}
 	}
 	
 	public Coordinates decision(ArrayList<Coordinates> ListOfCoordinates){
@@ -118,6 +134,11 @@ public class Drone {
 		Double distance; 
 		distance = (Double)Math.ceil(Math.sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2)));
 		return distance; 
+	}
+	
+	public void delivery(int nbItem, Product prodType){
+		this.productItems.remove(prodType);
+		this.maxCapacity+=prodType.getWeight()*nbItem;
 	}
 	
 	
