@@ -30,5 +30,7 @@ public class Warehouse {
 	}
 	public void setIdWarehouse(int idWarehouse) {
 		this.idWarehouse = idWarehouse;
-	}	
+	}
+	
+	
 }
