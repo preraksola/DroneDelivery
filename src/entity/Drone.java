@@ -6,8 +6,16 @@ public class Drone {
 	private int y;
 	private String currenCommand;
 	private int droneId;
+	private int maxCapacity;
 	
 	
+	
+	public int getMaxCapacity() {
+		return maxCapacity;
+	}
+	public void setMaxCapacity(int maxCapacity) {
+		this.maxCapacity = maxCapacity;
+	}
 	public int getDroneId() {
 		return droneId;
 	}
