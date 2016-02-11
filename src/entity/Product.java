@@ -23,7 +23,4 @@ public class Product {
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
-	
-	
 }
->>>>>>> c116c49263c77e84d5b5687b6b505737bb8eacac

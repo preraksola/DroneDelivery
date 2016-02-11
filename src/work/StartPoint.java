@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 import com.sun.xml.internal.bind.v2.schemagen.xmlschema.List;
 
+import entity.Coordinates;
 import entity.Drone;
 import entity.Order;
 import entity.Product;
@@ -49,18 +50,18 @@ public class StartPoint {
 			String line = br.readLine();
 			numberOfRows = Integer.parseInt(line.split(" ")[0]);
 			numberOfColumns = Integer.parseInt(line.split(" ")[1]);
+			maxTurns = Integer.parseInt(line.split(" ")[3]);
+			maxLoad = Integer.parseInt(line.split(" ")[4]);
 
 			int nummberOfDrones = Integer.parseInt(line.split(" ")[2]); 
 			drones = new ArrayList<>(nummberOfDrones);
 			
 			for(int i = 0; i < nummberOfDrones; i++)
 			{
-				drones.add(new Drone());
+				drones.add(new Drone(i, maxLoad));
 				System.out.println(i);
 			}
 			
-			maxTurns = Integer.parseInt(line.split(" ")[3]);
-			maxLoad = Integer.parseInt(line.split(" ")[4]);
 
 			line = br.readLine();
 			int numberOfProducts = Integer.parseInt(line.split(" ")[0]);
@@ -84,9 +85,12 @@ public class StartPoint {
 			for(int i = 0; i < numberOfWarehouses; i++)
 			{
 				line = br.readLine();
-				Warehouse tmp = new Warehouse();
-				tmp.setX(Integer.parseInt(line.split(" ")[0]));
-				tmp.setY(Integer.parseInt(line.split(" ")[1]));
+				Coordinates c = new Coordinates();
+				
+				c.setX(Integer.parseInt(line.split(" ")[0]));
+				c.setY(Integer.parseInt(line.split(" ")[1]));
+				Warehouse tmp = new Warehouse(c, i);
+				
 				line = br.readLine();
 				HashMap<Product, Integer> tmpHM= new HashMap<>();
 				
@@ -97,7 +101,7 @@ public class StartPoint {
 				}
 
 				tmp.setProductItems(tmpHM);
-				warehouses.add(new Warehouse());
+				warehouses.add(tmp);
 			}
 			
 			line = br.readLine();
@@ -108,11 +112,12 @@ public class StartPoint {
 			for (int i = 0; i < numberOfOrders; i++)
 			{
 				line = br.readLine();
-				Order tmpOrder = new Order();
-				tmpOrder.setOrderId(i);
-				tmpOrder.setX(Integer.parseInt(line.split(" ")[0]));
-				tmpOrder.setY(Integer.parseInt(line.split(" ")[1]));
-				
+				Coordinates c = new Coordinates();
+				c.setX(Integer.parseInt(line.split(" ")[0]));
+				c.setY(Integer.parseInt(line.split(" ")[1]));
+
+				Order tmpOrder = new Order(c, i);
+
 				line = br.readLine();
 				int numberOfItems = Integer.parseInt(line.split(" ")[0]);
 				
